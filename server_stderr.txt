@@ -1,0 +1,20 @@
+2026-06-06 09:58:19 | INFO    | __main__ | 启动 AIGC Multi-Agent Platform v0.1.0
+INFO:     Started server process [30208]
+INFO:     Waiting for application startup.
+2026-06-06 09:58:19 | INFO    | backend.app | \U0001f680 AIGC Multi-Agent Platform v0.1.0 启动中...
+2026-06-06 09:58:19 | INFO    | langchain_openai.chat_models._client_utils | langchain-openai detected system proxy configuration and no explicit `http_socket_options` / `http_client` / `http_async_client` / `openai_proxy`; skipping the custom `httpx` transport so httpx's env-proxy auto-detection applies. Pass `http_socket_options=[...]` to opt back into kernel-level TCP keepalive tuning on top of the env proxy.
+2026-06-06 09:58:26 | INFO    | api.deps | [DI] LLM 已初始化: model=deepseek-v3 base_url=https://api.deepseek.com
+2026-06-06 09:58:26 | INFO    | backend.app |   \u2713 LLM: deepseek-v3 @ https://api.deepseek.com
+2026-06-06 09:58:26 | WARNING | api.deps | [DI] tavily-python 未安装，搜索增强已禁用
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] TopicAgent 已初始化
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] WriterAgent 已初始化
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] ReviewAgent 已初始化
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] VideoScriptAgent 已初始化
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] 已添加 4 个节点: topic_analysis, content_generate, content_review, video_script
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] 已添加条件边: START → topic → content → review → script → END
+2026-06-06 09:58:26 | INFO    | graph.graph_builder | [GraphBuilder] 图编译完成（无持久化）
+2026-06-06 09:58:26 | INFO    | api.deps | [DI] LangGraph 工作流已编译并缓存
+2026-06-06 09:58:26 | INFO    | backend.app |   \u2713 LangGraph 工作流已就绪
+2026-06-06 09:58:26 | INFO    | backend.app | \u2705 AIGC Multi-Agent Platform 已就绪，监听 0.0.0.0:8000
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

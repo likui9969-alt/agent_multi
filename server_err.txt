@@ -1,0 +1,265 @@
+2026-06-06 10:43:21 | INFO    | __main__ | 启动 AIGC Multi-Agent Platform v0.1.0
+INFO:     Started server process [33352]
+INFO:     Waiting for application startup.
+2026-06-06 10:43:21 | INFO    | backend.app | \U0001f680 AIGC Multi-Agent Platform v0.1.0 启动中...
+2026-06-06 10:43:21 | INFO    | langchain_openai.chat_models._client_utils | langchain-openai detected system proxy configuration and no explicit `http_socket_options` / `http_client` / `http_async_client` / `openai_proxy`; skipping the custom `httpx` transport so httpx's env-proxy auto-detection applies. Pass `http_socket_options=[...]` to opt back into kernel-level TCP keepalive tuning on top of the env proxy.
+2026-06-06 10:43:27 | INFO    | api.deps | [DI] LLM 已初始化: model=qwen-turbo base_url=https://api.deepseek.com
+2026-06-06 10:43:27 | INFO    | backend.app |   \u2713 LLM: qwen-turbo @ https://api.deepseek.com
+2026-06-06 10:43:28 | WARNING | api.deps | [DI] tavily-python 未安装，搜索增强已禁用
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] TopicAgent 已初始化
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] WriterAgent 已初始化
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] ReviewAgent 已初始化
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] VideoScriptAgent 已初始化
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] 已添加 4 个节点: topic_analysis, content_generate, content_review, video_script
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] 已添加条件边: START → topic → content → review → script → END
+2026-06-06 10:43:28 | INFO    | graph.graph_builder | [GraphBuilder] 图编译完成（无持久化）
+2026-06-06 10:43:28 | INFO    | api.deps | [DI] LangGraph 工作流已编译并缓存
+2026-06-06 10:43:28 | INFO    | backend.app |   \u2713 LangGraph 工作流已就绪
+2026-06-06 10:43:28 | INFO    | backend.app | \u2705 AIGC Multi-Agent Platform 已就绪，监听 0.0.0.0:8000
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-06-06 10:44:38 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606024438885488dc338 topic='如何学习Python...'
+2026-06-06 10:45:27 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:45:27 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606024438885488dc338 topic='如何学习Python...'
+2026-06-06 10:46:16 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606024438885488dc338: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:46:16 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606024438885488dc338 agent=topic_analysis
+2026-06-06 10:46:16 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='如何学习Python...'
+2026-06-06 10:46:16 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 10:46:21 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:21 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.5, sections=5
+2026-06-06 10:46:21 | INFO    | graph.graph_builder | [Router] 选题评分 8.5 ≥ 6.0，进入内容生成
+2026-06-06 10:46:21 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:46:29 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:29 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:46:29 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:46:29 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:46:35 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:35 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:46:35 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:46:35 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:46:42 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:42 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:46:42 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:46:42 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:46:51 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:51 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:46:51 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:46:51 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:46:57 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:46:57 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:46:57 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:46:57 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:03 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:03 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:03 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:03 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:11 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:11 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:11 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:11 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:19 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:19 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:19 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:19 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:26 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:26 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:26 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:26 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:34 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:34 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:34 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:34 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:40 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:40 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:40 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:40 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:48 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:48 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:48 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:48 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:47:56 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:47:56 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:47:56 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/2 次重试
+2026-06-06 10:47:56 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:48:05 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:48:05 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:48:05 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 822 字，进入审核
+2026-06-06 10:48:05 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 10:48:07 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:48:07 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 10:48:07 | INFO    | graph.graph_builder | [Router] 审核通过（8.0分），进入视频脚本生成
+2026-06-06 10:48:07 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 10:48:18 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:48:18 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 10:48:18 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 11 个分镜，流水线结束
+2026-06-06 10:48:18 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606024438885488dc338
+2026-06-06 10:49:07 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:49:56 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606024438885488dc338: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:49:56 | INFO    | services.task_service | [TaskService] 任务完成: T20260606024438885488dc338 result_length=1979
+2026-06-06 10:49:56 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606024438885488dc338 scenes=11 duration=210s
+2026-06-06 10:50:53 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606025053262ec5ea905 topic='Python入门...'
+2026-06-06 10:51:42 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:51:42 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606025053262ec5ea905 topic='Python入门...'
+2026-06-06 10:52:31 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606025053262ec5ea905: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:52:31 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606025053262ec5ea905 agent=topic_analysis
+2026-06-06 10:52:31 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='Python入门...'
+2026-06-06 10:52:31 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 10:52:34 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:52:34 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.5, sections=4
+2026-06-06 10:52:34 | INFO    | graph.graph_builder | [Router] 选题评分 8.5 ≥ 6.0，进入内容生成
+2026-06-06 10:52:34 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:52:42 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:52:42 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:52:42 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 857 字，进入审核
+2026-06-06 10:52:42 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 10:52:44 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:52:44 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 10:52:44 | INFO    | graph.graph_builder | [Router] 审核通过（8.0分），进入视频脚本生成
+2026-06-06 10:52:44 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 10:52:55 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:52:55 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 10:52:55 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 11 个分镜，流水线结束
+2026-06-06 10:52:55 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606025053262ec5ea905
+2026-06-06 10:53:42 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:54:32 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606025053262ec5ea905: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:54:32 | INFO    | services.task_service | [TaskService] 任务完成: T20260606025053262ec5ea905 result_length=2370
+2026-06-06 10:54:32 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606025053262ec5ea905 scenes=11 duration=210s
+2026-06-06 10:54:52 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606025452a06ecca7504 topic='AI入门...'
+2026-06-06 10:55:40 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:55:40 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606025452a06ecca7504 topic='AI入门...'
+2026-06-06 10:56:30 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606025452a06ecca7504: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:56:30 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606025452a06ecca7504 agent=topic_analysis
+2026-06-06 10:56:30 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='AI入门...'
+2026-06-06 10:56:30 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 10:56:34 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:56:34 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.0, sections=4
+2026-06-06 10:56:34 | INFO    | graph.graph_builder | [Router] 选题评分 8.0 ≥ 6.0，进入内容生成
+2026-06-06 10:56:34 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 10:56:45 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:56:45 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 10:56:45 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 1023 字，进入审核
+2026-06-06 10:56:45 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 10:56:48 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:56:48 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 10:56:48 | INFO    | graph.graph_builder | [Router] 审核通过（8.0分），进入视频脚本生成
+2026-06-06 10:56:48 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 10:57:03 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 10:57:03 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 10:57:03 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 13 个分镜，流水线结束
+2026-06-06 10:57:03 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606025452a06ecca7504
+2026-06-06 10:57:51 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:58:40 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606025452a06ecca7504: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 10:58:40 | INFO    | services.task_service | [TaskService] 任务完成: T20260606025452a06ecca7504 result_length=2481
+2026-06-06 10:58:40 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606025452a06ecca7504 scenes=13 duration=300s
+2026-06-06 11:03:21 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606030321dd0e4f17836 topic='Python是什么...'
+2026-06-06 11:04:10 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:04:10 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606030321dd0e4f17836 topic='Python是什么...'
+2026-06-06 11:04:58 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606030321dd0e4f17836: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:04:58 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606030321dd0e4f17836 agent=topic_analysis
+2026-06-06 11:04:58 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='Python是什么...'
+2026-06-06 11:04:58 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 11:05:03 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:05:03 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.5, sections=4
+2026-06-06 11:05:03 | INFO    | graph.graph_builder | [Router] 选题评分 8.5 ≥ 6.0，进入内容生成
+2026-06-06 11:05:03 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 11:05:16 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:05:16 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 11:05:16 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 1174 字，进入审核
+2026-06-06 11:05:16 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 11:05:19 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:05:19 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 11:05:19 | INFO    | graph.graph_builder | [Router] 审核通过（7.8分），进入视频脚本生成
+2026-06-06 11:05:19 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 11:05:38 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:05:38 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 11:05:38 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 15 个分镜，流水线结束
+2026-06-06 11:05:38 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606030321dd0e4f17836
+2026-06-06 11:06:26 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:07:15 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606030321dd0e4f17836: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:07:15 | INFO    | services.task_service | [TaskService] 任务完成: T20260606030321dd0e4f17836 result_length=2999
+2026-06-06 11:07:15 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606030321dd0e4f17836 scenes=15 duration=210s
+2026-06-06 11:12:05 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T202606060312050b6d5960413 topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:12:54 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:12:54 | INFO    | services.task_service | [TaskService] 任务已创建: T202606060312050b6d5960413 topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:13:44 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T202606060312050b6d5960413: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:13:44 | INFO    | services.task_service | [TaskService] 任务开始执行: T202606060312050b6d5960413 agent=topic_analysis
+2026-06-06 11:13:44 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:13:44 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 11:13:48 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:13:48 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.2, sections=5
+2026-06-06 11:13:48 | INFO    | graph.graph_builder | [Router] 选题评分 8.2 ≥ 6.0，进入内容生成
+2026-06-06 11:13:48 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 11:13:55 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:13:55 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 11:13:55 | WARNING | graph.graph_builder | [Router] 内容质量不足（字数或段落缺失），第 1/3 次重试
+2026-06-06 11:13:55 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 11:14:07 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:14:07 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 11:14:07 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 1155 字，进入审核
+2026-06-06 11:14:07 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 11:14:10 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:14:10 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 11:14:10 | INFO    | graph.graph_builder | [Router] 审核通过（7.8分），进入视频脚本生成
+2026-06-06 11:14:10 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 11:14:30 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:14:30 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 11:14:30 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 13 个分镜，流水线结束
+2026-06-06 11:14:30 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T202606060312050b6d5960413
+2026-06-06 11:15:19 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:16:08 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T202606060312050b6d5960413: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:16:08 | INFO    | services.task_service | [TaskService] 任务完成: T202606060312050b6d5960413 result_length=3205
+2026-06-06 11:16:08 | INFO    | api.routes.generate | [API] 请求完成 task_id=T202606060312050b6d5960413 scenes=13 duration=315s
+2026-06-06 11:17:14 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606031714fbcfb4a4686 topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:18:03 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:18:03 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606031714fbcfb4a4686 topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:18:53 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606031714fbcfb4a4686: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:18:53 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606031714fbcfb4a4686 agent=topic_analysis
+2026-06-06 11:18:53 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='2025年AI Agent技术发展趋势与行业落地案例...'
+2026-06-06 11:18:53 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 11:18:57 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:18:57 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.2, sections=5
+2026-06-06 11:18:57 | INFO    | graph.graph_builder | [Router] 选题评分 8.2 ≥ 6.0，进入内容生成
+2026-06-06 11:18:57 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 11:19:10 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:19:10 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 11:19:10 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 1157 字，进入审核
+2026-06-06 11:19:10 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 11:19:14 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:19:14 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 11:19:14 | INFO    | graph.graph_builder | [Router] 审核通过（8.0分），进入视频脚本生成
+2026-06-06 11:19:14 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 11:19:27 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:19:27 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 11:19:27 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 12 个分镜，流水线结束
+2026-06-06 11:19:27 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606031714fbcfb4a4686
+2026-06-06 11:20:16 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:21:06 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606031714fbcfb4a4686: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:21:06 | INFO    | services.task_service | [TaskService] 任务完成: T20260606031714fbcfb4a4686 result_length=2243
+2026-06-06 11:21:06 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606031714fbcfb4a4686 scenes=12 duration=300s
+2026-06-06 11:24:21 | INFO    | api.routes.generate | [API] 收到生成请求 task_id=T20260606032421598cb442324 topic='ai发展趋势...'
+2026-06-06 11:25:10 | ERROR   | services.task_service | [TaskService] Redis 存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:25:10 | INFO    | services.task_service | [TaskService] 任务已创建: T20260606032421598cb442324 topic='ai发展趋势...'
+2026-06-06 11:25:59 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606032421598cb442324: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:25:59 | INFO    | services.task_service | [TaskService] 任务开始执行: T20260606032421598cb442324 agent=topic_analysis
+2026-06-06 11:25:59 | INFO    | agents.topic_agent | [TopicAgent] 开始选题分析，topic='ai发展趋势...'
+2026-06-06 11:25:59 | INFO    | agents.topic_agent | [TopicAgent] 未配置 Tavily 客户端，跳过搜索增强
+2026-06-06 11:26:04 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:26:04 | INFO    | agents.topic_agent | [TopicAgent] 选题分析完成 → score=8.5, sections=4
+2026-06-06 11:26:04 | INFO    | graph.graph_builder | [Router] 选题评分 8.5 ≥ 6.0，进入内容生成
+2026-06-06 11:26:04 | INFO    | agents.base | [content_generate] 开始执行
+2026-06-06 11:26:19 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:26:19 | INFO    | agents.base | [content_generate] 执行完成
+2026-06-06 11:26:19 | INFO    | graph.graph_builder | [Router] 内容质量通过 → 1169 字，进入审核
+2026-06-06 11:26:19 | INFO    | agents.base | [content_review] 开始执行
+2026-06-06 11:26:22 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:26:22 | INFO    | agents.base | [content_review] 执行完成
+2026-06-06 11:26:22 | INFO    | graph.graph_builder | [Router] 审核通过（8.2分），进入视频脚本生成
+2026-06-06 11:26:22 | INFO    | agents.base | [video_script] 开始执行
+2026-06-06 11:26:42 | INFO    | httpx | HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-06 11:26:42 | INFO    | agents.base | [video_script] 执行完成
+2026-06-06 11:26:42 | INFO    | graph.graph_builder | [Router] 脚本生成完成 → 18 个分镜，流水线结束
+2026-06-06 11:26:42 | INFO    | api.routes.generate | [API] 工作流执行完成 task_id=T20260606032421598cb442324
+2026-06-06 11:27:31 | WARNING | services.task_service | [TaskService] Redis 结果存储失败: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:28:19 | ERROR   | services.task_service | [TaskService] Redis 更新失败 task_id=T20260606032421598cb442324: Error 22 connecting to localhost:6379. 远程计算机拒绝网络连接。.
+2026-06-06 11:28:19 | INFO    | services.task_service | [TaskService] 任务完成: T20260606032421598cb442324 result_length=2994
+2026-06-06 11:28:19 | INFO    | api.routes.generate | [API] 请求完成 task_id=T20260606032421598cb442324 scenes=18 duration=300s

@@ -1,0 +1,115 @@
+# ============================================================
+# AIGC Multi-Agent Platform — Docker Compose 编排
+# ============================================================
+# 一键启动:
+#   docker compose -f docker/docker-compose.yml up -d
+#
+# 查看日志:
+#   docker compose -f docker/docker-compose.yml logs -f app
+#
+# 停止:
+#   docker compose -f docker/docker-compose.yml down
+# ============================================================
+
+version: "3.9"
+
+services:
+  # ── FastAPI 应用 ──────────────────────────────────────────
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: agent-multi:latest
+    container_name: agent-multi-app
+    restart: unless-stopped
+
+    ports:
+      - "${APP_PORT:-8000}:8000"
+
+    env_file:
+      - ../.env
+
+    environment:
+      # Redis 在容器内通过服务名访问
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      # 应用配置
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+      - APP_DEBUG=${APP_DEBUG:-false}
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+    networks:
+      - agent_network
+
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2G"
+        reservations:
+          cpus: "0.5"
+          memory: "512M"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  # ── Redis 缓存 & 任务状态存储 ─────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: agent-multi-redis
+    restart: unless-stopped
+
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+    volumes:
+      - redis_data:/data
+
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+    networks:
+      - agent_network
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+# ── 网络 ──────────────────────────────────────────────────
+networks:
+  agent_network:
+    name: agent_network
+    driver: bridge
+
+# ── 持久化卷 ──────────────────────────────────────────────
+volumes:
+  redis_data:
+    name: agent_multi_redis_data

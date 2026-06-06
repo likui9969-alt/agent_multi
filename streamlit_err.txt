@@ -1,0 +1,10 @@
+2026-06-06 11:21:28.564 Uvicorn server started on 0.0.0.0:8501
+2026-06-06 11:24:18.670 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.649 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.650 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.651 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.652 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.652 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.652 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.653 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-06-06 11:28:19.653 Thread 'Thread-3 (run_generation)': missing ScriptRunContext! This warning can be ignored when running in bare mode.
